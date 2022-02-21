@@ -26,14 +26,33 @@ namespace webApiRestMiCasa2.Data
                 {
                     while (dr.Read())
                     {
-                        registrosCasas.Add(new Casas()
+                        if (dr["Dueño"] == DBNull.Value)
                         {
-                            idCasa=Convert.ToInt32(dr["idCasa"]),
-                            tipodeCasa=dr["tipodeCasa"].ToString(),
-                            Ubicacion=dr["Ubicacion"].ToString(),
-                            Descripcion=dr["Descripcion"].ToString(),
-                            Dueño=Convert.ToInt32(dr["Dueño"])
-                        });
+                            int? resDueño = null;
+                            registrosCasas.Add(new Casas()
+                            {
+                                idCasa = Convert.ToInt32(dr["idCasa"]),
+                                tipodeCasa = dr["tipodeCasa"].ToString(),
+                                Ubicacion = dr["Ubicacion"].ToString(),
+                                Descripcion = dr["Descripcion"].ToString(),
+                                //Dueño = Convert.ToInt32(dr["Dueño"])
+                                Dueño = resDueño
+                            });
+                        }
+                        else
+                        {
+                            int resDueño = Convert.ToInt32(dr["Dueño"]);
+                            registrosCasas.Add(new Casas()
+                            {
+                                idCasa = Convert.ToInt32(dr["idCasa"]),
+                                tipodeCasa = dr["tipodeCasa"].ToString(),
+                                Ubicacion = dr["Ubicacion"].ToString(),
+                                Descripcion = dr["Descripcion"].ToString(),
+                                //Dueño = Convert.ToInt32(dr["Dueño"])
+                                Dueño = resDueño
+                            });
+                        }
+
                     }
                     return registrosCasas;
                 }
