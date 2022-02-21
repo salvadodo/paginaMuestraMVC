@@ -14,7 +14,7 @@ namespace webApiRestMiCasa2.Data
         public static List<Casas> registrosCasas()
         {
             List<Casas> registrosCasas = new List<Casas>();  
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["casasDueñosContext"].ConnectionString))
+            using(SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["casasDueñosContext"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
@@ -106,6 +106,97 @@ namespace webApiRestMiCasa2.Data
                 {
                     dr.Close();
                     if(con.State!= ConnectionState.Closed)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+        }
+        public static bool insertarCasa(Casas insCasa)
+        {
+            using(SqlConnection con=new SqlConnection(ConfigurationManager.ConnectionStrings["casasDueñosContext"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_insertCasas";
+                cmd.Parameters.AddWithValue("@tipodecasa", insCasa.tipodeCasa);
+                cmd.Parameters.AddWithValue("@Ubicacion", insCasa.Ubicacion);
+                cmd.Parameters.AddWithValue("@Descripcion", insCasa.Descripcion);
+                cmd.Parameters.AddWithValue("@Dueño", insCasa.Dueño);
+                con.Open();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    if(con.State!= ConnectionState.Closed)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+        }
+        public static bool modificarCasas(Casas modCasas)
+        {
+            using(SqlConnection con=new SqlConnection(ConfigurationManager.ConnectionStrings["casasDueñosContext"].ConnectionString))
+            {
+                SqlCommand cmd=new SqlCommand();
+                cmd.Connection=con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_updateCasas";
+                cmd.Parameters.AddWithValue("@idCasa", modCasas.idCasa);
+                cmd.Parameters.AddWithValue("@tipodecasa", modCasas.tipodeCasa);
+                cmd.Parameters.AddWithValue("@Ubicacion", modCasas.Ubicacion);
+                cmd.Parameters.AddWithValue("@Descripcion", modCasas.Descripcion);
+                cmd.Parameters.AddWithValue("@Dueño", modCasas.Dueño);
+                con.Open();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    if (con.State != ConnectionState.Closed)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+        }
+        public static bool eliminarCasa(int eliCasa)
+        {
+            using(SqlConnection con=new SqlConnection(ConfigurationManager.ConnectionStrings["casasDueñosContext"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_deleteCasas";
+                cmd.Parameters.AddWithValue("@idCasa", eliCasa);
+                con.Open();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    if(con.State != ConnectionState.Closed)
                     {
                         con.Close();
                     }

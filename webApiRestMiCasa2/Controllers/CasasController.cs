@@ -24,18 +24,21 @@ namespace webApiRestMiCasa2.Controllers
         }
 
         // POST: api/Casas
-        public void Post([FromBody]string value)
+        public bool Post([FromBody]Casas insCasa)
         {
+            return miCasaData.insertarCasa(insCasa);
         }
 
         // PUT: api/Casas/5
-        public void Put(int id, [FromBody]string value)
+        public bool Put([FromBody]Casas modCasa)
         {
+            return miCasaData.modificarCasas(modCasa);
         }
 
         // DELETE: api/Casas/5
-        public void Delete(int id)
+        public bool Delete(int eliCasa)
         {
+            return miCasaData.eliminarCasa(eliCasa);
         }
     }
 }
