@@ -26,33 +26,54 @@ namespace webApiRestMiCasa2.Data
                 {
                     while (dr.Read())
                     {
-                        if (dr["Dueño"] == DBNull.Value)
+                        if (dr["Dueño"]==DBNull.Value && dr["Descripcion"] == DBNull.Value)
                         {
-                            int? resDueño = null;
+                            int? nullDueño = null;
+                            string nullDescripcion=null;
+                            registrosCasas.Add(new Casas()
+                            {
+                                idCasa = Convert.ToInt32(dr["idCasa"]),
+                                tipodeCasa = dr["tipodeCasa"].ToString(),
+                                Ubicacion = dr["Ubicacion"].ToString(),
+                                Descripcion = nullDescripcion,
+                                Dueño = nullDueño
+                            });
+                        }
+                        else if (dr["Dueño"] == DBNull.Value)
+                        {
+                            int? nullDueño = null;
                             registrosCasas.Add(new Casas()
                             {
                                 idCasa = Convert.ToInt32(dr["idCasa"]),
                                 tipodeCasa = dr["tipodeCasa"].ToString(),
                                 Ubicacion = dr["Ubicacion"].ToString(),
                                 Descripcion = dr["Descripcion"].ToString(),
-                                //Dueño = Convert.ToInt32(dr["Dueño"])
-                                Dueño = resDueño
+                                Dueño = nullDueño
+                            });
+                        }
+                        else if (dr["Descripcion"]==DBNull.Value)
+                        {
+                            string nullDescripcion = null;
+                            registrosCasas.Add(new Casas()
+                            {
+                                idCasa = Convert.ToInt32(dr["idCasa"]),
+                                tipodeCasa = dr["tipodeCasa"].ToString(),
+                                Ubicacion = dr["Ubicacion"].ToString(),
+                                Descripcion = nullDescripcion,
+                                Dueño = Convert.ToInt32(dr["Dueño"])
                             });
                         }
                         else
                         {
-                            int resDueño = Convert.ToInt32(dr["Dueño"]);
                             registrosCasas.Add(new Casas()
                             {
                                 idCasa = Convert.ToInt32(dr["idCasa"]),
                                 tipodeCasa = dr["tipodeCasa"].ToString(),
                                 Ubicacion = dr["Ubicacion"].ToString(),
                                 Descripcion = dr["Descripcion"].ToString(),
-                                //Dueño = Convert.ToInt32(dr["Dueño"])
-                                Dueño = resDueño
+                                Dueño = Convert.ToInt32(dr["Dueño"])
                             });
                         }
-
                     }
                     return registrosCasas;
                 }
@@ -87,14 +108,54 @@ namespace webApiRestMiCasa2.Data
                     Casas oneCasa = new Casas();
                     while (dr.Read())
                     {
-                        oneCasa=new Casas()
+                        if (dr["Dueño"] == DBNull.Value && dr["Descripcion"] == DBNull.Value)
                         {
-                            idCasa = Convert.ToInt32(dr["idCasa"]),
-                            tipodeCasa = dr["tipodeCasa"].ToString(),
-                            Ubicacion = dr["Ubicacion"].ToString(),
-                            Descripcion = dr["Descripcion"].ToString(),
-                            Dueño = Convert.ToInt32(dr["Dueño"])
-                        };
+                            int? nullDueño = null;
+                            string nullDescripcion = null;
+                            oneCasa=new Casas()
+                            {
+                                idCasa = Convert.ToInt32(dr["idCasa"]),
+                                tipodeCasa = dr["tipodeCasa"].ToString(),
+                                Ubicacion = dr["Ubicacion"].ToString(),
+                                Descripcion = nullDescripcion,
+                                Dueño = nullDueño
+                            };
+                        }
+                        else if (dr["Dueño"] == DBNull.Value)
+                        {
+                            int? nullDueño = null;
+                            oneCasa=new Casas()
+                            {
+                                idCasa = Convert.ToInt32(dr["idCasa"]),
+                                tipodeCasa = dr["tipodeCasa"].ToString(),
+                                Ubicacion = dr["Ubicacion"].ToString(),
+                                Descripcion = dr["Descripcion"].ToString(),
+                                Dueño = nullDueño
+                            };
+                        }
+                        else if (dr["Descripcion"] == DBNull.Value)
+                        {
+                            string nullDescripcion = null;
+                            oneCasa=new Casas()
+                            {
+                                idCasa = Convert.ToInt32(dr["idCasa"]),
+                                tipodeCasa = dr["tipodeCasa"].ToString(),
+                                Ubicacion = dr["Ubicacion"].ToString(),
+                                Descripcion = nullDescripcion,
+                                Dueño = Convert.ToInt32(dr["Dueño"])
+                            };
+                        }
+                        else
+                        {
+                            oneCasa=new Casas()
+                            {
+                                idCasa = Convert.ToInt32(dr["idCasa"]),
+                                tipodeCasa = dr["tipodeCasa"].ToString(),
+                                Ubicacion = dr["Ubicacion"].ToString(),
+                                Descripcion = dr["Descripcion"].ToString(),
+                                Dueño = Convert.ToInt32(dr["Dueño"])
+                            };
+                        }
                     }
                     return oneCasa;
                 }
