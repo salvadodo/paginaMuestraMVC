@@ -100,13 +100,17 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CasasController.cs" />
+    <Compile Include="Controllers\CasasDueñosJoinsController.cs" />
+    <Compile Include="Controllers\DueñosController.cs" />
     <Compile Include="Data\miCasaData.cs" />
+    <Compile Include="Data\miCasasDueñosData.cs" />
     <Compile Include="Data\miDueñosData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Casas.cs" />
     <Compile Include="Models\casasDueñosContext.cs" />
+    <Compile Include="Models\CasasDueñosJoins.cs" />
     <Compile Include="Models\Dueños.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

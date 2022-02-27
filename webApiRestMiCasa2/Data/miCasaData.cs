@@ -94,7 +94,8 @@ namespace webApiRestMiCasa2.Data
         }
         public static Casas selectCasa(int idCasa)
         {
-            using(SqlConnection con=new SqlConnection(ConfigurationManager.ConnectionStrings["casasDueñosContext"].ConnectionString))
+            Casas oneCasa = new Casas();
+            using (SqlConnection con=new SqlConnection(ConfigurationManager.ConnectionStrings["casasDueñosContext"].ConnectionString))
             {
                 SqlCommand cmd=new SqlCommand();
                 cmd.Connection=con;
@@ -105,7 +106,6 @@ namespace webApiRestMiCasa2.Data
                 SqlDataReader dr=cmd.ExecuteReader(CommandBehavior.Default);
                 try
                 {
-                    Casas oneCasa = new Casas();
                     while (dr.Read())
                     {
                         if (dr["Dueño"] == DBNull.Value && dr["Descripcion"] == DBNull.Value)
